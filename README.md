@@ -1,5 +1,5 @@
 # Ubiquiti RSSI and GPS Logger
-This script takes data from the Ubiquity prism and bullet dashboard and relays key data back with a timestamp. The main purpose of these scripts is to log connection info so that it can in turn be paired with GPS sensor data to see the correlation between distance between communications relays and their signal strength. The GPS data is collected utilizing ROS.
+This script takes data from the Ubiquiti prism and bullet dashboard and relays key data back with a timestamp. The main purpose of these scripts is to log connection info so that it can in turn be paired with GPS sensor data to see the correlation between distance between communications relays and their signal strength. The GPS data is collected utilizing ROS.
 
 ## Prerequisites
 - A Internet Browser
@@ -10,10 +10,10 @@ This script takes data from the Ubiquity prism and bullet dashboard and relays k
 
 ## Hardware Setup
 
-- Power Ubiquity Prism (or Ubiquiti Bullet) using a Power Over Ethernet (POE) adapter
+- Power Ubiquiti Prism (or Ubiquiti Bullet) using a Power Over Ethernet (POE) adapter
 - Connect LAN connection of POE to computer via Ethernet
 - Ensure the computer is connected to that Ethernet connection in the Network Manager
-- Power on second Ubiquity Prism (or Ubiquiti Bullet) using a (POE) adapter
+- Power on second Ubiquiti Prism (or Ubiquiti Bullet) using a (POE) adapter
 - Connect LAN connection of POE to second computer via Ethernet
 - Ensure the two prisms connect to each other by checking the indicator lights
 
@@ -21,11 +21,11 @@ This script takes data from the Ubiquity prism and bullet dashboard and relays k
 - Start the ROS master on host computer
 - Run ROS Launch files to publish GPS data
 
-## Running the Ubiquity RSSI Logger
+## Running the Ubiquiti RSSI Logger
 
-1) Open a web browser on the computer and type in IP of Ubiquity Prism (or Ubiquiti Bullet)
+1) Open a web browser on the computer and type in IP of Ubiquiti Prism (or Ubiquiti Bullet)
 
-2) Log in to the Ubiquity dashboard
+2) Log in to the Ubiquiti dashboard
 
 3) In the top right corner, click the orange drop down button, and ensure status table is displaying at bottom of web page.
 
@@ -47,7 +47,7 @@ This script takes data from the Ubiquity prism and bullet dashboard and relays k
 
 10) When you are done collecting data, export results by right clicking on the console output and selecting either Copy All or Save As (depending on your browser)
 
-![~~](images/ubiquity_console_output.png)
+![~~](images/Ubiquiti_console_output.png)
 
 
 
@@ -92,6 +92,6 @@ Replace 'file.bag' with the name of your bag file and '/fix' is the topic we are
 
 - The data returned is as follows: `[Timestamp, Ground_Station Signal, Second Router Signal, Estimated Distance, Download Speed, Upload Speed, Connection Time]`
 
-- When you copy or save the output from the console, note it will also copy the code you set in the beginning. Make sure to delete these first couple lines to ensure your file only contains Ubiquity data. Your Inspector tools may also output the line number in the RSSI script which is printing the data. This should be deleted as well before post processing.
+- When you copy or save the output from the console, note it will also copy the code you set in the beginning. Make sure to delete these first couple lines to ensure your file only contains Ubiquiti data. Your Inspector tools may also output the line number in the RSSI script which is printing the data. This should be deleted as well before post processing.
 
 - The RSSI output is formatted to work as a CSV file. When saving the output, just use the file extension `.csv`, and it will be able to be imported into most spreadsheet software.
