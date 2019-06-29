@@ -29,7 +29,7 @@ This script takes data from the Ubiquiti prism and bullet dashboard and relays k
 
 3) In the top right corner, click the orange drop down button, and ensure status table is displaying at bottom of web page.
 
-![~~](images/ubuity_dashboard_annotated.png)
+![~~](Images/ubuity_dashboard_annotated.png)
 
 4) Open the inspector console of the browser (Ctrl + Shift + I)
 
@@ -39,7 +39,7 @@ This script takes data from the Ubiquiti prism and bullet dashboard and relays k
 
 7) When you are ready to start the script, simply type `p()` into the console. Data will be outputted below.
 
-![~~](images/inspector_tools_data.png)
+![~~](Images/inspector_tools_data.png)
 
 8) To pause the RSSI looger, type `p()` again
 
@@ -47,7 +47,7 @@ This script takes data from the Ubiquiti prism and bullet dashboard and relays k
 
 10) When you are done collecting data, export results by right clicking on the console output and selecting either Copy All or Save As (depending on your browser)
 
-![~~](images/Ubiquiti_console_output.png)
+![~~](Images/Ubiquiti_console_output.png)
 
 
 
@@ -70,7 +70,7 @@ rosbag record /fix
 ```
 . '/fix' is the standard ROS topic name for the GPS sensor.
 
-![~~](images/ros_gps_data_collection.png)
+![~~](Images/ros_gps_data_collection.png)
 
 4) When you are finished collecting data, simply hit the 'Ctrl + C' buttons in each terminal to stop running it. The bag file will be saved to the directory the terminal is in with the name being the data which recording started.
 
