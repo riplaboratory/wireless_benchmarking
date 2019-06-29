@@ -8,4 +8,4 @@ Last tested in Matlab R2019a.
 
 ## Notes on the data import process
 
-Because importing from `.xslx` files is slow, the script will generate two data files, `rf2412.mat` and `rf5240.mat` for speed.  You do not need to do anything with these except keep them in the same directory.  Set `excelImport` on line 7 to `0` to import from the .xslx data files (slow), and set it to `1` to import from the `.mat files (fast). 
+Because importing from `.xslx` files is slow, the script will generate two data files, `rf2412.mat` and `rf5240.mat` for speed.  You do not need to do anything with these except keep them in the same directory.  Set `excelImport = 0` on line 7 to import from the .xslx data files (slow), or set `excelImport = 1` to import from the `.mat` files (fast). 
