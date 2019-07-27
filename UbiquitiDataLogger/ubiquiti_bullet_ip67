@@ -1,0 +1,65 @@
+/*
+
+Copyright (c) 2019 RIP Laboratory
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+global_indicator = 1
+
+function ubiquiti_rssi_logger(){
+  var a = $("#station_list_table_row_B4FBE4B881ED")[0].innerHTML;
+  var b = a.split("</td>");
+  var indexes = [];
+  indexes.push(b[2].indexOf(">")+1);
+  indexes.push(b[2].length);
+  indexes.push(b[3].indexOf(">")+1);
+  indexes.push(b[3].length);
+  indexes.push(b[6].indexOf(">")+1);
+  indexes.push(b[6].length);
+  indexes.push(b[7].indexOf(">")+1);
+  indexes.push(b[7].length);
+  indexes.push(b[4].indexOf(">")+1);
+  indexes.push(b[4].length);
+  indexes.push(b[9].indexOf(">")+1);
+  indexes.push(b[9].length);
+  var signal = b[2].slice(indexes[0], indexes[1]);
+  var remote_signal = b[3].slice(indexes[2], indexes[3]);
+  var distance = b[6].slice(indexes[4], indexes[5]);
+  var download_upload = b[7].slice(indexes[6], indexes[7]);
+  var noise = b[4].slice(indexes[8], indexes[9]);
+  var conn_time = b[9].slice(indexes[10], indexes[11]);
+  var today = new Date();
+  var comp_time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  console.log(comp_time , "," , signal, "," , remote_signal, "," , distance, "," ,download_upload, ",", noise, ",", conn_time);
+
+  if(global_indicator == 0){
+    var refresh = $("#_refresh").click()
+    setTimeout(ubiquiti_rssi_logger, 1000);
+  }
+}
+
+p = function(){
+  if(global_indicator == 0){ global_indicator = 1}
+  else{
+    global_indicator = 0
+    ubiquiti_rssi_logger()}
+}
