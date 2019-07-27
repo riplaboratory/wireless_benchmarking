@@ -95,3 +95,5 @@ Replace 'file.bag' with the name of your bag file and '/fix' is the topic we are
 - When you copy or save the output from the console, note it will also copy the code you set in the beginning. Make sure to delete these first couple lines to ensure your file only contains Ubiquiti data. Your Inspector tools may also output the line number in the RSSI script which is printing the data. This should be deleted as well before post processing.
 
 - The RSSI output is formatted to work as a CSV file. When saving the output, just use the file extension `.csv`, and it will be able to be imported into most spreadsheet software.
+
+- If using the `ubiquiti_bullet_ip67.js` code, you will may need to change the id lised in the line`var a = $("#station_list_table_row_B4FBE4B881ED")[0].innerHTML;` where `B4FBE4B881ED` is the Station MAC address without any colons. 
