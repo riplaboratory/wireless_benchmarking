@@ -1,6 +1,6 @@
 # Matlab Data Processing Script
 
-The compiled experimental data is stored in the files `compiledData.xlsx`.
+The compiled experimental data is stored in the file `compiledData.xlsx`.
 
 Run the `processData.m` to run the data processing script.  It will create multiple figures, you may save these conventionally within Matlab (File>Save As). 
 
