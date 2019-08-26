@@ -9,7 +9,7 @@ function processData
     rfData = removeErrors(rfData);
     
     % Plot all of the corrected data
-    plotImported(rfData,1);
+    plotImported(rfData,1,0);
     
     % Remove data outside effective antenna beamwidth
     rfData = removeOutsideAntennaData(rfData);
@@ -18,19 +18,19 @@ function processData
     rfData = combineRuns(rfData);
     
     % Plot combined Rx Tx data
-    plotRxTx(rfData,2);
+    plotRxTx(rfData,2,0);
     
     % Run binned mean, std dev, and confidence interval statistics on data
     rfData = binStatistics(rfData);
     
     % Plot binned mean, std dev and confidence interval
-    plotBins(rfData,3);
+    plotBins(rfData,3,0);
     
     % Loss model processing
     rfModel = lossModels(rfData);
     
     % Plot loss models
-    plotLossModels(rfData,rfModel,4);
+    plotLossModels(rfData,rfModel,4,0);
     
     % Remove data ouside of crossover distance before fitting TRGR R2
     rfData = removeOutsideCrossoverDistance(rfData,rfModel);
@@ -39,8 +39,8 @@ function processData
     rfModel = fitLossModels(rfModel,rfData);
        
     % Plot fits
-    plotTrgrR2Fits(rfData,rfModel,5);
-    plotTrgrFits(rfData,rfModel,6);
+    plotTrgrR2Fits(rfData,rfModel,5,0);
+    plotTrgrFits(rfData,rfModel,6,0);
     
     % Assign to workspace
     assignin('base','rfData',rfData);
@@ -727,7 +727,7 @@ function rfData = removeErrors(rfData)
     
 end
 
-function plotImported(rfData,figNum)
+function plotImported(rfData,figNum,write2file)
 
     % Close all open figures
     close all;
@@ -740,8 +740,8 @@ function plotImported(rfData,figNum)
     xMax = 550;
     yMin = -100;
     yMax = -20;
-    titleFontSize = 22;
-    defaultFontSize = 20;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land
     f2h2l = subplot(2,4,1);
@@ -761,7 +761,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 2 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 2 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 2GHz, 2m, sea
@@ -782,7 +782,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 2 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 2 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 2GHz, 5m, land
@@ -803,7 +803,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 5 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 5 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 2GHz, 5m, sea
@@ -824,7 +824,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 5 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 5 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 2m, land
@@ -849,7 +849,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx','Run 3 Rx','Run 3 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 2 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 2 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 2m, sea
@@ -870,7 +870,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 2 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 2 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 5m, land
@@ -891,7 +891,7 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 5 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 5 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 5m, sea
@@ -912,12 +912,18 @@ function plotImported(rfData,figNum)
     ylim([yMin,yMax]);
     legend('Run 1 Rx','Run 1 Tx','Run 2 Rx','Run 2 Tx');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 5 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 5 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % Link axes
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'x');
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'y');
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
 
 end
 
@@ -1132,7 +1138,7 @@ function rfData = combineRuns(rfData)
         
 end
 
-function plotRxTx(rfData,figNum)
+function plotRxTx(rfData,figNum,write2file)
 
     % Create new figure
     figure(figNum);
@@ -1142,8 +1148,8 @@ function plotRxTx(rfData,figNum)
     xMax = 550;
     yMin = -100;
     yMax = -20;
-    titleFontSize = 24;
-    defaultFontSize = 22;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land
     f2h2l = subplot(2,4,1);
@@ -1268,6 +1274,12 @@ function plotRxTx(rfData,figNum)
     % Link axes
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'x');
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'y');
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
 
 end
 
@@ -1391,7 +1403,7 @@ function [meanVec,sigmaVec,conf95Vec] = meanConfBin(bins,binnedDist,rssiData)
     
 end
 
-function plotBins(rfData,figNum)
+function plotBins(rfData,figNum,write2file)
 
     % Create new figure
     figure(figNum);
@@ -1401,8 +1413,8 @@ function plotBins(rfData,figNum)
     xMax = 550;
     yMin = -100;
     yMax = -20;
-    titleFontSize = 22;
-    defaultFontSize = 20;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land
     f2h2l = subplot(2,4,1);
@@ -1441,7 +1453,7 @@ function plotBins(rfData,figNum)
     ylim([yMin,yMax]);
     legend('mean RSSI over land','+/-\sigma','+/-95% confidence interval');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 2 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 2 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 2GHz, 2m, sea
@@ -1481,7 +1493,7 @@ function plotBins(rfData,figNum)
     ylim([yMin,yMax]);
     legend('mean RSSI over sea','+/-\sigma','+/-95% confidence interval');
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 2 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 2 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
         
     % 2GHz, 5m, land
@@ -1520,7 +1532,7 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 5 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 5 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 2GHz, 5m, sea
@@ -1559,7 +1571,7 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 2.412 GHz, h_T_x = 5 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 2.412 GHz, h_T_x = 5 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 2m, land
@@ -1598,7 +1610,7 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 2 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 2 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 2m, sea
@@ -1637,7 +1649,7 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 2 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 2 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 5m, land
@@ -1676,7 +1688,7 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 5 m, Over Land','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 5 m, Land','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % 5GHz, 5m, sea
@@ -1715,12 +1727,18 @@ function plotBins(rfData,figNum)
     xlim([xMin,xMax]);
     ylim([yMin,yMax]);
     set(gca,'FontName','Times New Roman','FontSize',defaultFontSize);
-    title('f = 5.240 GHz, h_T_x = 5 m, Over Sea','FontName','Times New Roman','FontSize',titleFontSize);
+    title('f = 5.240 GHz, h_T_x = 5 m, Sea','FontName','Times New Roman','FontSize',titleFontSize);
     grid on;
     
     % Link axes
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'x');
     linkaxes([f2h2l,f2h2s,f2h5l,f2h5s,f5h2l,f5h2s,f5h5l,f5h5s],'y');
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
     
 end
 
@@ -1758,7 +1776,7 @@ function rfModel = lossModels(rfData)
 
 end
 
-function plotLossModels(rfData,rfModel,figNum)
+function plotLossModels(rfData,rfModel,figNum,write2file)
 
     % Create new figure
     figure(figNum);
@@ -1768,8 +1786,8 @@ function plotLossModels(rfData,rfModel,figNum)
     xMax = 550;
     yMin = -120;
     yMax = 0;
-    titleFontSize = 24;
-    defaultFontSize = 22;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land + sea
     f2h2 = subplot(2,2,1);
@@ -1875,6 +1893,12 @@ function plotLossModels(rfData,rfModel,figNum)
     % Link axes
     linkaxes([f2h2,f2h5,f5h2,f5h5],'x');
     linkaxes([f2h2,f2h5,f5h2,f5h5],'y');
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
 
 end
 
@@ -2312,7 +2336,7 @@ function [p,Rsq] = fitTrgr(x,y,dataFitFun,p0,fitTrue)
     
 end
 
-function plotTrgrR2Fits(rfData,rfModel,figNum)
+function plotTrgrR2Fits(rfData,rfModel,figNum,write2file)
 
     % Create new figure
     figure(figNum);
@@ -2322,8 +2346,8 @@ function plotTrgrR2Fits(rfData,rfModel,figNum)
     xMax = 550;
     yMin = -120;
     yMax = 0;
-    titleFontSize = 24;
-    defaultFontSize = 22;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land + sea
     f2h2 = subplot(2,2,1);
@@ -2420,10 +2444,16 @@ function plotTrgrR2Fits(rfData,rfModel,figNum)
     % Link axes
     linkaxes([f2h2,f2h5,f5h2,f5h5],'x');
     linkaxes([f2h2,f2h5,f5h2,f5h5],'y');
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
 
 end
 
-function plotTrgrFits(rfData,rfModel,figNum)
+function plotTrgrFits(rfData,rfModel,figNum,write2file)
 
     % Create new figure
     figure(figNum);
@@ -2433,8 +2463,8 @@ function plotTrgrFits(rfData,rfModel,figNum)
     xMax = 550;
     yMin = -120;
     yMax = 0;
-    titleFontSize = 24;
-    defaultFontSize = 22;
+    titleFontSize = 32;
+    defaultFontSize = 28;
     
     % 2GHz, 2m, land + sea
     f2h2 = subplot(2,2,1);
@@ -2531,5 +2561,11 @@ function plotTrgrFits(rfData,rfModel,figNum)
     % Link axes
     linkaxes([f2h2,f2h5,f5h2,f5h5],'x');
     linkaxes([f2h2,f2h5,f5h2,f5h5],'y');
-
+    
+    % Save to file
+    if (write2file == 1)
+        set(gcf,'PaperPosition',[0 0 32 18]) 
+        print(gcf,'-r300','-dpng',['fig',num2str(figNum),'.png']) 
+    end
+    
 end
